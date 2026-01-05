@@ -1,44 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Restaurant Menu</title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #f8f8f8;
-            padding: 20px;
-        }
-        .menu {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        h2 {
-            color: #d35400;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            padding: 8px 0;
-            border-bottom: 1px solid #ddd;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>PRIYANKA Restaurant</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f5f5f5;
+}
+.menu, .cart {
+    width: 45%;
+    float: left;
+    margin: 20px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+}
+.menu-item {
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+.menu-item img {
+    width: 80px;
+    border-radius: 6px;
+}
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.cart-item img {
+    width: 60px;
+    margin-right: 10px;
+}
+button {
+    padding: 5px 10px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+</style>
 </head>
+
 <body>
 
 <div class="menu">
-    <h2>🍽️ Food Menu/ priyanka</h2>
-    <ul>
-        <li>🍕 Pizza - ₹250</li>
-        <li>🍔 Burger - ₹150</li>
-        <li>🥪 Sandwich - ₹120</li>
-        <li>🍝 Pasta - ₹220</li>
-        <li>🥤 Cold Drink - ₹60</li>
-        <li>🍨 Ice Cream - ₹90</li>
-    </ul>
+    <h2>🍽️ Food Menu - PRIYANKA Restaurant</h2>
+
+    <div class="menu-item" onclick="addToCart('Pizza',250,'pizza.jpg')">
+        <img src="/images/pizza.png"> 🍕 Pizza - ₹250
+    </div>
+
+    <div class="menu-item" onclick="addToCart('Burger',150,'burger.jpg')">
+        <img src="/images/pizza.png"> 🍔 Burger - ₹150
+    </div>
+
+    <div class="menu-item" onclick="addToCart('Sandwich',120,'sandwich.jpg')">
+        <img src="/images/pizza.png"> 🥪 Sandwich - ₹120
+    </div>
+
+    <div class="menu-item" onclick="addToCart('Pasta',220,'pasta.jpg')">
+        <img src="/images/pizza.png"> 🍝 Pasta - ₹220
+    </div>
+
+    <div class="menu-item" onclick="addToCart('Cold Drink',60,'drink.jpg')">
+        <img src="/images/pizza.png"> 🥤 Cold Drink - ₹60
+    </div>
+
+    <div class="menu-item" onclick="addToCart('Ice Cream',90,'icecream.jpg')">
+        <img src="/images/pizza.png"> 🍨 Ice Cream - ₹90
+    </div>
 </div>
+
+<div class="cart">
+    <h2>🛒 Cart</h2>
+    <div id="cartItems"></div>
+</div>
+
+<script>
+let cart = [];
+
+function addToCart(name, price, img) {
+    cart.push({name, price, img});
+    displayCart();
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    displayCart();
+}
+
+function displayCart() {
+    let cartHTML = "";
+    cart.forEach((item, index) => {
+        cartHTML += `
+            <div class="cart-item">
+                <img src="${item.img}">
+                <div>
+                    <b>${item.name}</b><br>
+                    ₹${item.price}
+                </div>
+                <button onclick="removeFromCart(${index})">Remove</button>
+            </div>
+        `;
+    });
+    document.getElementById("cartItems").innerHTML = cartHTML;
+}
+</script>
 
 </body>
 </html>
